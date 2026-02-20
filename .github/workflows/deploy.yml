@@ -34,7 +34,7 @@ jobs:
       - name: Build, Tag & Push Docker Image
         run: |
           docker build -t strapi ./my-strapi-fargate
-          docker tag strapi:latest $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker tag strapi:latest $ECR_REGISTRY/strapi-repo:latest
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       # 🔥 IMPORTANT FIX — Terraform Install Step
