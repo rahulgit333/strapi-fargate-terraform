@@ -1,3 +1,3 @@
 resource "aws_ecr_repository" "strapi" {
-  name = "fargate-ecr-repo"
+  name = "strapi-repo"
 }
