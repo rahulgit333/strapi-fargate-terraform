@@ -17,10 +17,18 @@ resource "aws_ecs_task_definition" "strapi" {
         }
       ]
 
+      # ✅ ENV VARIABLE ADDED
+      environment = [
+        {
+          name  = "NODE_ENV"
+          value = "production"
+        }
+      ]
+
       logConfiguration = {
         logDriver = "awslogs"
         options = {
-          awslogs-group         = "/ecs/strapi"
+          awslogs-group         = aws_cloudwatch_log_group.strapi.name
           awslogs-region        = var.region
           awslogs-stream-prefix = "ecs"
         }

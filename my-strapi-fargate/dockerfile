@@ -1,12 +1,15 @@
-FROM node:20
+FROM node:18-alpine
 
-WORKDIR /my-strapi-fargate
+WORKDIR /app
 
 COPY package*.json ./
-RUN npm install
+
+RUN npm install --production
 
 COPY . .
 
+RUN npm run build
+
 EXPOSE 1337
 
-CMD ["npm", "run", "develop"]
+CMD ["npm", "run", "start"]
