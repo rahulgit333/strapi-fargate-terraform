@@ -22,7 +22,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - run: aws ecr get-login-password --region $AWS_REGION |
-             docker login --username AWS --password-stdin ${{ secrets.ECR_REPO }}
+             docker login --username AWS --password-stdin 347026174334.dkr.ecr.ap-south-1.amazonaws.com
 
       - run: |
           docker build -t strapi ./app
