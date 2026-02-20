@@ -25,7 +25,7 @@ jobs:
              docker login --username AWS --password-stdin 347026174334.dkr.ecr.ap-south-1.amazonaws.com
 
       - run: |
-          docker build -t strapi ./app
+          docker build -t strapi ./my-strapi-fargate
           docker tag strapi:latest ${{ secrets.ECR_REPO }}:latest
           docker push ${{ secrets.ECR_REPO }}:latest
 
