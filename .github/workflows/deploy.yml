@@ -26,8 +26,8 @@ jobs:
 
       - run: |
           docker build -t strapi ./my-strapi-fargate
-          docker tag strapi:latest ${{ secrets.ECR_REPO }}:latest
-          docker push ${{ secrets.ECR_REPO }}:latest
+          docker tag strapi:latest 347026174334.dkr.ecr.ap-south-1.amazonaws.com/fargate-ecr-repo:latest
+          docker push 347026174334.dkr.ecr.ap-south-1.amazonaws.com/fargate-ecr-repo:latest
 
       - run: |
           cd terraform
