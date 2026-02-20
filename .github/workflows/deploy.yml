@@ -8,7 +8,7 @@ on:
 env:
   AWS_REGION: ap-south-1
   ECR_REGISTRY: 347026174334.dkr.ecr.ap-south-1.amazonaws.com
-  ECR_REPOSITORY: fargate-ecr-repo
+  ECR_REPOSITORY: strapi-repo
   IMAGE_TAG: latest
 
 jobs:
