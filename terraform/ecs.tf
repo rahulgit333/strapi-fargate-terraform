@@ -14,14 +14,38 @@ resource "aws_ecs_task_definition" "strapi" {
       portMappings = [
         {
           containerPort = 1337
+          protocol      = "tcp"
         }
       ]
 
-      # ✅ ENV VARIABLE ADDED
       environment = [
         {
           name  = "NODE_ENV"
           value = "production"
+        },
+        {
+          name  = "HOST"
+          value = "0.0.0.0"
+        },
+        {
+          name  = "PORT"
+          value = "1337"
+        },
+        {
+          name  = "APP_KEYS"
+          value = "4av3q0DH1wxv7s7MHBhm+IgjLpvarB7cW+ciHfsREmo=,5+pBSG0CM0GUYpi1jf1GkDmGBhaKkYp4f9WP1A6zTSw="
+        },
+        {
+          name  = "API_TOKEN_SALT"
+          value = "GrIzdHmoKbYRzFmDv/Mr80MgZRgLn6Raxm1F8coubPE="
+        },
+        {
+          name  = "ADMIN_JWT_SECRET"
+          value = "TmDRvIM2gCHIWKhZaB+WPsrk7jsZUnrMvpicf/MxRsI="
+        },
+        {
+          name  = "JWT_SECRET"
+          value = "TmDRvIM2gCHIWKhZaB+WPsrk7jsZUnrMvpicf/MxRsI="
         }
       ]
 
@@ -33,6 +57,8 @@ resource "aws_ecs_task_definition" "strapi" {
           awslogs-stream-prefix = "ecs"
         }
       }
+
+      essential = true
     }
   ])
 }
