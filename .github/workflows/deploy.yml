@@ -26,18 +26,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Login to Amazon ECR
-        run: |
-          aws ecr get-login-password --region $AWS_REGION | \
-          docker login --username AWS --password-stdin $ECR_REGISTRY
-
-      - name: Build, Tag & Push Docker Image
-        run: |
-          docker build -t strapi ./my-strapi-fargate
-          docker tag strapi:latest $ECR_REGISTRY/strapi-repo:latest
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-
-      # 🔥 IMPORTANT FIX — Terraform Install Step
+      # ✅ STEP 1 — Terraform FIRST
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
@@ -48,3 +37,15 @@ jobs:
       - name: Terraform Apply
         working-directory: terraform
         run: terraform apply -auto-approve
+
+      # ✅ STEP 2 — Then Docker
+      - name: Login to Amazon ECR
+        run: |
+          aws ecr get-login-password --region $AWS_REGION | \
+          docker login --username AWS --password-stdin $ECR_REGISTRY
+
+      - name: Build, Tag & Push Docker Image
+        run: |
+          docker build -t strapi ./my-strapi-fargate
+          docker tag strapi:latest $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
